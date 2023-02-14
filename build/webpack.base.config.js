@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+// const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+
+const {CheckPlugin} = require('awesome-typescript-loader');
 const path = require('path');
 module.exports = {
     entry: './src/index.ts',
@@ -20,7 +22,7 @@ module.exports = {
                     // 1.更适合和babel集成，使用babel转义和缓存 2.不需要安装额外的插件就可以把类型检查放到独立进程中
                     loader: "awesome-typescript-loader",
                     options: {
-                        transpileOnly: true // 做语言转换，不做类型检查
+                        transpileOnly: false // 做语言转换，不做类型检查
                     }
                 }],
                 exclude: /node_modules/
@@ -31,7 +33,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/tpl/index.html'
         }),
-        new ForkTsCheckerWebpackPlugin()
+        // new ForkTsCheckerWebpackPlugin()
+        new CheckPlugin()
     ]
 
 }
